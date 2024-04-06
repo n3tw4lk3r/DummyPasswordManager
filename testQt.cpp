@@ -8,6 +8,8 @@ int main(int argc, char* argv[]) {
     label->setText("Hello world!");
     label->show();
 
+    // asdfasdlk;fjas;lkjflasjdflkjkjsdaf;
+    
     int status = app.exec();
     delete label; // в Qt родители автоматически удаляют детей
                   // но если родителя нет, надо удалить вручную, иначе утечка
