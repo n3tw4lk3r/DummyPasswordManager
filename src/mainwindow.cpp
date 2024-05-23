@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "passwordswindow.h"
 #include "FileOpenDialog.h"
-#include <QMessageBox>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->masterpasswordLineEdit->setEchoMode(QLineEdit::Password);
+    setWindowTitle("     ");
 }
 
 MainWindow::~MainWindow()
@@ -20,20 +21,42 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_startButton_clicked()
 {
-    QString login = ui->usernameLineEdit->text(),
+    QString file = ui->openFileLabel->text(),
             password = ui->masterpasswordLineEdit->text();
 
-    /* ToDo: нормальная проверка логина и пароля, открытие файла */
-    if (login == "одмин" && password == "пороль") {
-        hide();
-        PasswordsWindow window;
-        window.setModal(true);
-        window.exec();
+    std::cout << file.toStdString() << '\n';
+    if (file == "Файл не выбран") {
+        QMessageBox::critical(this, "Ошибка", "Файл не выбран");
+        return;
     }
 
-    else {
-        QMessageBox::critical(this, "Ты дурак", "Неверный логин или пароль");
+    std::string fileMasterPassword;
+    try {
+        std::fstream inputFile(file.toStdString());
+        std::string fileFormatString;
+
+        std::getline(inputFile, fileFormatString);
+        if (fileFormatString != "DMPFile") {
+            throw std::runtime_error("File corrupted");
+        }
+        inputFile >> fileMasterPassword;
+
+    } catch (const std::exception& e) {
+        QMessageBox::critical(this, "Ошибка", "Файл поврежден");
+        return;
     }
+
+    // хэшировать введенный пароль
+    if (hash(password.toStdString()) == fileMasterPassword) {
+        std::cout << "Password correct\n";
+        hide();
+        PasswordsWindow window(file, password);
+        window.setModal(true);
+        window.exec();
+        return;
+    }
+
+    QMessageBox::critical(this, "Ошибка", "Введен неверный мастер-пароль");
 }
 
 
@@ -42,5 +65,15 @@ void MainWindow::on_OpenFileButton_clicked()
      FileOpenDialog openDialog;
      QString file = openDialog.openFile();
      ui->openFileLabel->setText(file);
+}
+
+
+
+void MainWindow::on_newFileButton_clicked()
+{
+    hide();
+    PasswordsWindow window;
+    window.setModal(true);
+    window.exec();
 }
 

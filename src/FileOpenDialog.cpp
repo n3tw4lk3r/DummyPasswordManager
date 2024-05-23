@@ -5,16 +5,12 @@ QString FileOpenDialog::openFile()
     QString filename =  QFileDialog::getOpenFileName(
         this,
         "Open Document",
-        QDir::currentPath(),
-        "Document files (*.txt)");
+        QString("passwords.dpm"),
+        "DummyPasswordManager files (*.dpm)");
 
     if (!filename.isNull()) {
-        return "Открыт файл: " + filename;
+        return filename;
     }
 
-    return "Файл не указан";
+    return "Файл не выбран";
 }
-
-// FileOpenDialog test;
-// QString file = test.openFile();
-// ui->label->setText(file);

@@ -1,8 +1,9 @@
 #include <crypto.h>
 
-//std::string hash(const std::string& input) {
-//    // вернуть хэш
-//}
+std::string hash(const std::string input) {
+    std::hash<std::string> hasher;
+    return std::to_string(hasher(input));
+}
 
 std::string encrypt(const std::string& input, const std::string& key) {
     std::cout << "encrypt called\n";

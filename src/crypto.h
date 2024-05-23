@@ -11,7 +11,7 @@ enum class type{
     someone_letters = 2
 };
 
-std::string hash(const std::string& input);
+std::string hash(const std::string input);
 std::string encrypt(const std::string& input, const std::string& key);
 std::string decrypt(const std::string& input, const std::string& key);
 std::string generateRandomPassword(type t = type::someone_letters, size_t length = 30);

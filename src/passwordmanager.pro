@@ -2,7 +2,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++17
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -10,13 +10,17 @@ CONFIG += c++11
 
 SOURCES += \
     FileOpenDialog.cpp \
+    crypto.cpp \
     main.cpp \
     mainwindow.cpp \
+    passwordsEncoder.cpp \
     passwordswindow.cpp
 
 HEADERS += \
     FileOpenDialog.h \
+    crypto.h \
     mainwindow.h \
+    passwordEncoder.h \
     passwordswindow.h
 
 FORMS += \

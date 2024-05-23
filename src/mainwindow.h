@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
+
+#include <fstream>
+#include "crypto.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,6 +23,8 @@ private slots:
     void on_startButton_clicked();
 
     void on_OpenFileButton_clicked();
+
+    void on_newFileButton_clicked();
 
 private:
     Ui::MainWindow *ui;
