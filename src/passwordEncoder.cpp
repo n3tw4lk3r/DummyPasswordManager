@@ -13,6 +13,7 @@ std::map<name_of_group, group_of_passwords> decode(std::string toDecode_) {
         l = r + num + 1;
         return st;
     };
+    
     while (l < toDecode_.size() - 1) {
         if (toDecode_[l] == 'e') {
             in_group = false;
