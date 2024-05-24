@@ -1,4 +1,4 @@
-#include "password_decoder.h"
+#include "passwordEncoder.h"
 std::map<name_of_group, group_of_passwords> decode(std::string toDecode_) {
     std::map<name_of_group, group_of_passwords> groups;
     int l = 1, r, num;
